@@ -1,7 +1,9 @@
 package controller;
 
 import bo.Customer.CustomerBo;
+import bo.Customer.OrderBo;
 import bo.Customer.impl.CustomerBoImpl;
+import bo.Customer.impl.OrderBoImpl;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dto.CustomerDto;
@@ -89,9 +91,10 @@ public class PlaceOrderFormController {
     private List<ItemDto>cart=new ArrayList<>();
 
     private CustomerBo customerBo =new CustomerBoImpl();
+    private OrderBo orderBo=new OrderBoImpl();
     private ItemDao itemDao =new ItemDaoImpl();
     private ObservableList<OrderTm>tmList=FXCollections.observableArrayList();
-    private OrderDao orderDao =new OrderDaoImpl();
+   // private OrderDao orderDao =new OrderDaoImpl();
     double tot=0;
     @FXML
     void addToCartButtonOnAction(ActionEvent event) {
@@ -201,21 +204,7 @@ try {
         }
     }
     public void generateId(){
-        try {
-            OrderDto dto = orderDao.lastOrder();
-            if (dto!=null){
-                String id = dto.getOrderId();
-                int num = Integer.parseInt(id.split("[D]")[1]);
-                num++;
-                lblOrderId.setText(String.format("D%03d",num));
-            }else{
-                lblOrderId.setText("D001");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+       lblOrderId.setText(orderBo.generateId());
     }
 
     @FXML
@@ -234,7 +223,7 @@ try {
             if (!tmList.isEmpty()) {
                 boolean isSaved = false;
                 try {
-                    isSaved = orderDao.saveOrder(new OrderDto(
+                    isSaved = orderBo.saveOreder(new OrderDto(
                             lblOrderId.getText(),
                             LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")),
                             cmbCustId.getValue().toString(),
