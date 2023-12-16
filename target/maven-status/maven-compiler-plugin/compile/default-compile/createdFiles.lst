@@ -1,8 +1,10 @@
 entity\Item.class
+bo\Customer\OrderBo.class
 dao\util\BoType.class
 dto\tm\CustomerTm.class
 controller\PlaceOrderFormController.class
 dao\custom\ItemDao.class
+dao\util\DaoType.class
 bo\Customer\impl\CustomerBoImpl.class
 dao\custom\OrderDetailsDao.class
 bo\Customer\CustomerBo.class
@@ -20,10 +22,13 @@ dto\tm\OrderTm.class
 bo\SuperBo.class
 dto\OrderDto.class
 dao\custom\impl\ItemDaoImpl.class
+dao\DaoFactory$1.class
+dao\DaoFactory.class
 controller\ItemFormController$1$1.class
 entity\Customer.class
 dto\CustomerDto.class
 dto\ItemDto.class
+bo\Customer\impl\OrderBoImpl.class
 controller\CustomerFormController.class
 bo\BoFactory$1.class
 bo\BoFactory.class
