@@ -44,5 +44,6 @@
       </JFXButton>
       <JFXTextField fx:id="searchText" layoutX="42.0" layoutY="110.0" onKeyTyped="#searchbar" prefHeight="25.0" prefWidth="161.0" />
       <Label layoutX="48.0" layoutY="89.0" prefHeight="17.0" prefWidth="106.0" text="Search Name" />
+      <Button layoutX="621.0" layoutY="470.0" mnemonicParsing="false" onAction="#reportuttonOnAction" prefHeight="26.0" prefWidth="60.0" text="Report" />
    </children>
 </AnchorPane>
