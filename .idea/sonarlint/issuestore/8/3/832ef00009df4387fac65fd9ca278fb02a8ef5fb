@@ -1,13 +1,13 @@
 
-e
-java:S2095 "OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—
-e
-java:S2095Z"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—
-e
-java:S2095Q"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—
-e
-java:S2095@"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—
-e
-java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—
-e
-java:S2095-"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—
+L
+java:S3740c"/Provide the parametrized type for this generic.(‡İ‰8ÇéıÉ1
+~
+java:S1488d"\Immediately return this expression instead of assigning it to the temporary variable "list".(åÂá«ÿÿÿÿÿ8ÈéıÉ1
+l
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—8ÈşàÉ1
+l
+java:S20950"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—8ÈşàÉ1
+l
+java:S2095'"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(Ìû—8ÈşàÉ1
+R
+java:S1144/"0Remove this unused private "getItemDtos" method.(¥Š¬ıÿÿÿÿ8Ëš“É1

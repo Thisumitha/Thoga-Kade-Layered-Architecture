@@ -1,10 +1,14 @@
 package controller;
 
+import bo.BoFactory;
+
+import bo.Item.ItemBo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import dao.util.BoType;
 import db.DBConnection;
 import dto.ItemDto;
 import javafx.beans.value.ChangeListener;
@@ -22,12 +26,13 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import dto.tm.ItemTm;
-import dao.custom.ItemDao;
-import dao.custom.impl.ItemDaoImpl;
+
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.function.Predicate;
+
+import static java.lang.Double.parseDouble;
 
 public class ItemFormController {
 
@@ -66,7 +71,8 @@ public class ItemFormController {
 
     @FXML
     private JFXTextField txtUnitPrice;
-    private ItemDao itemDao = new ItemDaoImpl();
+
+    private ItemBo itemBo = BoFactory.getInstance().getBo(BoType.ITEM);
 
     public void initialize(){
         colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
@@ -143,15 +149,11 @@ public class ItemFormController {
     }
 
     private void deleteItem(String code) {
-        String sql = "DELETE from item WHERE code=?";
-
         try {
-            PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setString(1,code);
-            int result = pstm.executeUpdate(sql);
-            if (result>0){
+            boolean isDeleted = itemBo.deleteItem(code);
+            if (isDeleted){
                 new Alert(Alert.AlertType.INFORMATION,"Item Deleted!").show();
-                loadItemTable();
+               loadItemTable();
             }else{
                 new Alert(Alert.AlertType.ERROR,"Something went wrong!").show();
             }
@@ -174,40 +176,38 @@ public class ItemFormController {
 
     @FXML
     void saveButtonOnAction(ActionEvent event) {
-        ItemDto dto = new ItemDto(txtCode.getText(),
-                txtDesc.getText(),
-                Double.parseDouble(txtUnitPrice.getText()),
-                Integer.parseInt(txtQty.getText())
-        );
-        String sql = "INSERT INTO item VALUES(?,?,?,?)";
+            try {
 
-        try {
-            PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setString(1,dto.getCode());
-            pstm.setString(2,dto.getDesc());
-            pstm.setDouble(3,dto.getUnitPrice());
-            pstm.setInt(4,dto.getQty());
-            int result = pstm.executeUpdate();
-            if (result>0){
-                new Alert(Alert.AlertType.INFORMATION,"Item Saved!").show();
-                loadItemTable();
-               clearFields();
+
+
+               Boolean isSaved = itemBo.saveItem(new ItemDto(txtCode.getText(),
+                        txtDesc.getText(),
+                        parseDouble(txtUnitPrice.getText()),
+                        Integer.parseInt(txtQty.getText())
+                ));
+                if (isSaved) {
+                    new Alert(Alert.AlertType.INFORMATION, "Item Saved!").show();
+                    loadItemTable();
+                    clearFields();
+                }
+            } catch (SQLIntegrityConstraintViolationException ex){
+                new Alert(Alert.AlertType.ERROR,"Duplicate Entry").show();
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
             }
 
-        } catch (SQLIntegrityConstraintViolationException ex){
-            new Alert(Alert.AlertType.ERROR,"Duplicate Entry").show();
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
     }
+
 
     @FXML
     void updateButtonOnAction(ActionEvent event) {
         try {
-            boolean isUpdated = itemDao.updateItem(new ItemDto(txtCode.getText(),
+
+            boolean isUpdated = itemBo.updateItem(new ItemDto(txtCode.getText(),
                     txtDesc.getText(),
-                    Double.parseDouble(txtUnitPrice.getText()),
-                    Integer.parseInt(txtQty.getText())));
+                    parseDouble(txtUnitPrice.getText()),
+                    Integer.parseInt(txtQty.getText())
+            ));
 
             if (isUpdated){
                 new Alert(Alert.AlertType.INFORMATION,"Customer Updated!").show();

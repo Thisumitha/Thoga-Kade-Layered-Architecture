@@ -2,7 +2,6 @@ package controller;
 
 import bo.BoFactory;
 import bo.Customer.CustomerBo;
-import bo.Customer.impl.CustomerBoImpl;
 import com.jfoenix.controls.JFXTextField;
 import dao.util.BoType;
 import db.DBConnection;
@@ -18,8 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import dto.CustomerDto;
 import dto.tm.CustomerTm;
-import dao.custom.CustomerDao;
-import dao.custom.impl.CustomerDaoImpl;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -68,8 +65,8 @@ public class CustomerFormController {
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("name"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
         colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
         loadCustomerTable();

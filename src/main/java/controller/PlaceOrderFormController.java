@@ -1,11 +1,14 @@
 package controller;
 
+import bo.BoFactory;
 import bo.Customer.CustomerBo;
 import bo.Customer.OrderBo;
 import bo.Customer.impl.CustomerBoImpl;
 import bo.Customer.impl.OrderBoImpl;
+import bo.Item.ItemBo;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import dao.util.BoType;
 import dto.CustomerDto;
 import dto.ItemDto;
 import dto.OrderDetailsDto;
@@ -25,12 +28,8 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import dao.custom.CustomerDao;
 import dao.custom.ItemDao;
-import dao.custom.OrderDao;
-import dao.custom.impl.CustomerDaoImpl;
 import dao.custom.impl.ItemDaoImpl;
-import dao.custom.impl.OrderDaoImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -96,6 +95,7 @@ public class PlaceOrderFormController {
     private ObservableList<OrderTm>tmList=FXCollections.observableArrayList();
    // private OrderDao orderDao =new OrderDaoImpl();
     double tot=0;
+    private ItemBo itemBo = BoFactory.getInstance().getBo(BoType.ITEM);
     @FXML
     void addToCartButtonOnAction(ActionEvent event) {
         String id = cmbItemCode.getSelectionModel().getSelectedItem().toString();
@@ -310,7 +310,7 @@ try {
 
     private void loadItemCodes(){
         try {
-            items= itemDao.allItem();
+            items= itemBo.allItems();
             ObservableList list= FXCollections.observableArrayList();
             for(ItemDto dto:items){
                 list.add(dto.getCode());

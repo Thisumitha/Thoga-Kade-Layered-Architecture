@@ -1,62 +1,20 @@
 package dao.custom.impl;
 
+import dao.util.HibernateUtil;
 import db.DBConnection;
 import dto.ItemDto;
 import dao.custom.ItemDao;
+import entity.Item;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDaoImpl implements ItemDao {
-
-
-    @Override
-    public boolean saveItem(ItemDto dto) throws SQLException, ClassNotFoundException {
-
-        String sql = "INSERT INTO item VALUES (?,?,?,?)";
-        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, dto.getCode());
-        pstm.setString(2, dto.getDesc());
-        pstm.setDouble(3, dto.getUnitPrice());
-        pstm.setInt(4, dto.getQty());
-        return pstm.executeUpdate() > 0;
-
-    }
-
-    @Override
-    public boolean updateItem(ItemDto dto) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE item SET description=?, unitPrice=?,qtyOnHand =? WHERE code=?";
-        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, dto.getDesc());
-        pstm.setDouble(2, dto.getUnitPrice());
-        pstm.setInt(3, dto.getQty());
-        pstm.setString(4, dto.getCode());
-
-        return pstm.executeUpdate() > 0;
-    }
-
-    @Override
-    public boolean deleteItem(String id) throws SQLException, ClassNotFoundException {
-
-        String sql = "DELETE from item WHERE code=?";
-        PreparedStatement pstm = DBConnection.getInstance().getConnection().prepareStatement(sql);
-        pstm.setString(1, id);
-        return pstm.executeUpdate() > 0;
-    }
-
-    @Override
-    public List<ItemDto> allItem() throws SQLException, ClassNotFoundException {
-        List<ItemDto> list = new ArrayList<>();
-
-        String sql = "SELECT * FROM item";
-        return getItemDtos(list, sql);
-    }
-
-
-
 
     @Override
     public ItemDto getItem(String code) throws SQLException, ClassNotFoundException {
@@ -100,4 +58,48 @@ public class ItemDaoImpl implements ItemDao {
         return list;
     }
 
+    @Override
+    public boolean save(Item entity) throws SQLException, ClassNotFoundException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(entity);
+        transaction.commit();
+        session.close();
+        return true;
+    }
+
+    @Override
+    public boolean update(Item entity) throws SQLException, ClassNotFoundException {
+        Session session = HibernateUtil.getSession();
+
+        Transaction transaction = session.beginTransaction();
+        Item item = session.find(Item.class, entity.getCode());
+        item.setCode(entity.getCode());
+        item.setDescription(entity.getDescription());
+        item.setQtyOnHand(entity.getQtyOnHand());
+        item.setUnitPrice(entity.getUnitPrice());
+        session.save(item);
+        transaction.commit();
+
+        return true;
+    }
+
+    @Override
+    public boolean delete(String value) throws SQLException, ClassNotFoundException {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(session.find(Item.class,value));
+        transaction.commit();
+        return true;
+    }
+
+    @Override
+    public List<Item> getAll() throws SQLException, ClassNotFoundException {
+        Session session = HibernateUtil.getSession();
+        Query query = session.createQuery("FROM Item");
+        List<Item> list = query.list();
+
+
+        return list;
+    }
 }
