@@ -1,11 +1,11 @@
 package controller;
 
 import bo.BoFactory;
-import bo.Customer.CustomerBo;
-import bo.Customer.OrderBo;
-import bo.Customer.impl.CustomerBoImpl;
-import bo.Customer.impl.OrderBoImpl;
-import bo.Item.ItemBo;
+import bo.custom.CustomerBo;
+import bo.custom.OrderBo;
+import bo.custom.impl.CustomerBoImpl;
+import bo.custom.impl.OrderBoImpl;
+import bo.custom.ItemBo;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import dao.util.BoType;
@@ -93,7 +93,7 @@ public class PlaceOrderFormController {
     private OrderBo orderBo=new OrderBoImpl();
     private ItemDao itemDao =new ItemDaoImpl();
     private ObservableList<OrderTm>tmList=FXCollections.observableArrayList();
-   // private OrderDao orderDao =new OrderDaoImpl();
+
     double tot=0;
     private ItemBo itemBo = BoFactory.getInstance().getBo(BoType.ITEM);
     @FXML
@@ -204,7 +204,8 @@ try {
         }
     }
     public void generateId(){
-       lblOrderId.setText(orderBo.generateId());
+
+        lblOrderId.setText(orderBo.generateId());
     }
 
     @FXML
@@ -257,13 +258,11 @@ try {
     private void refresh() {
         tmList.clear();
         tblOrder.refresh();
-        loadCustomerId();
+       loadCustomerId();
         loadItemCodes();
-        txtCustName.clear();
-        txtDesc.clear();
-        txtUnitPrice.clear();
         txtQty.clear();
         cmbload();
+        generateId();
 
 
     }
@@ -294,7 +293,7 @@ try {
         cmbCustId.getSelectionModel().selectedItemProperty().addListener(((observableValue,oldValue,id) -> {
             for (CustomerDto dto : customers) {
                 if (dto.getId().equals(id)){
-                    txtCustName.setText(dto.getName());
+                    txtCustName.setText(dto.getAddress());
                 }
             }
         }));

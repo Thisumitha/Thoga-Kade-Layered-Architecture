@@ -2,7 +2,7 @@ package controller;
 
 import bo.BoFactory;
 
-import bo.Item.ItemBo;
+import bo.custom.ItemBo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -30,6 +30,7 @@ import dto.tm.ItemTm;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.List;
 import java.util.function.Predicate;
 
 import static java.lang.Double.parseDouble;
@@ -77,8 +78,8 @@ public class ItemFormController {
     public void initialize(){
         colCode.setCellValueFactory(new TreeItemPropertyValueFactory<>("code"));
         colDesc.setCellValueFactory(new TreeItemPropertyValueFactory<>("desc"));
-        colUnitPrice.setCellValueFactory(new TreeItemPropertyValueFactory<>("unitPrice"));
         colQty.setCellValueFactory(new TreeItemPropertyValueFactory<>("qty"));
+        colUnitPrice.setCellValueFactory(new TreeItemPropertyValueFactory<>("unitPrice"));
         colOption.setCellValueFactory(new TreeItemPropertyValueFactory<>("btn"));
         loadItemTable();
 
@@ -115,20 +116,20 @@ public class ItemFormController {
 
     private void loadItemTable() {
         ObservableList<ItemTm> tmList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM item";
+
 
         try {
-            Statement stm = DBConnection.getInstance().getConnection().createStatement();
-            ResultSet result = stm.executeQuery(sql);
 
-            while (result.next()){
+            List<ItemDto> dtoList =itemBo.allItems();
+
+            for (ItemDto dto:dtoList){
                 JFXButton btn = new JFXButton("Delete");
 
                 ItemTm tm = new ItemTm(
-                        result.getString(1),
-                        result.getString(2),
-                        result.getDouble(3),
-                        result.getInt(4),
+                        dto.getCode(),
+                        dto.getDesc(),
+                        dto.getUnitPrice(),
+                        dto.getQty(),
                         btn
                 );
 

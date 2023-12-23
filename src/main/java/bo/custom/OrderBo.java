@@ -1,4 +1,4 @@
-package bo.Customer;
+package bo.custom;
 
 import bo.SuperBo;
 import dto.OrderDto;

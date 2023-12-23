@@ -1,13 +1,10 @@
-package bo.Item.impl;
+package bo.custom.impl;
 
-import bo.Item.ItemBo;
+import bo.custom.ItemBo;
 import dao.DaoFactory;
 import dao.custom.ItemDao;
-import dao.custom.impl.ItemDaoImpl;
 import dao.util.DaoType;
-import dto.CustomerDto;
 import dto.ItemDto;
-import entity.Customer;
 import entity.Item;
 
 import java.sql.SQLException;

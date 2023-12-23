@@ -1,6 +1,6 @@
-package bo.Customer.impl;
+package bo.custom.impl;
 
-import bo.Customer.CustomerBo;
+import bo.custom.CustomerBo;
 import dao.DaoFactory;
 import dao.custom.CustomerDao;
 import dao.util.DaoType;

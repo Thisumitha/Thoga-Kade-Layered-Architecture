@@ -1,7 +1,7 @@
 package controller;
 
 import bo.BoFactory;
-import bo.Customer.CustomerBo;
+import bo.custom.CustomerBo;
 import com.jfoenix.controls.JFXTextField;
 import dao.util.BoType;
 import db.DBConnection;
@@ -65,8 +65,8 @@ public class CustomerFormController {
 
     public void initialize(){
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("address"));
         colAddress.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("address"));
         colSalary.setCellValueFactory(new PropertyValueFactory<>("salary"));
         colOption.setCellValueFactory(new PropertyValueFactory<>("btn"));
         loadCustomerTable();
@@ -80,8 +80,8 @@ public class CustomerFormController {
         if (newValue != null) {
             txtId.setEditable(false);
             txtId.setText(newValue.getId());
-            txtName.setText(newValue.getName());
-            txtAddress.setText(newValue.getAddress());
+            txtName.setText(newValue.getAddress());
+            txtAddress.setText(newValue.getName());
             txtSalary.setText(String.valueOf(newValue.getSalary()));
         }
     }
@@ -152,7 +152,8 @@ public class CustomerFormController {
     @FXML
     void saveButtonOnAction(ActionEvent event) {
         try {
-            boolean isSaved = customerBo.saveCustomer(new CustomerDto(txtId.getText(),
+            boolean isSaved = customerBo.saveCustomer(new CustomerDto(
+                    txtId.getText(),
                     txtName.getText(),
                     txtAddress.getText(),
                     Double.parseDouble(txtSalary.getText())

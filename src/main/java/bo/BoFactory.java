@@ -1,7 +1,7 @@
 package bo;
 
-import bo.Customer.impl.CustomerBoImpl;
-import bo.Item.impl.ItemBoImpl;
+import bo.custom.impl.CustomerBoImpl;
+import bo.custom.impl.ItemBoImpl;
 import dao.util.BoType;
 
 public class BoFactory {

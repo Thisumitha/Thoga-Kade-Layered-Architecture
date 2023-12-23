@@ -223,3 +223,29 @@ Q.idea/sonarlint/securityhotspotstore/b/b/bb5b1cb5a3a4bbc31ccbfe04eaf93e6e052b0a
 Q.idea/sonarlint/securityhotspotstore/a/b/abb075a885885e86b037ef50efd6f18ce0968f4a,6\2\6270b32437a1e29f716860e372d7c41441e1495c
 Å
 Q.idea/sonarlint/securityhotspotstore/1/f/1f97ee3a6373256a66d8b32e55c921da2354215e,3\b\3bf77d36af0290d5dbbe56d7000710c1c2ec092c
+P
+ src/main/java/entity/Orders.java,4\8\48211ba3dd7e8b79fb874d28da2202f2c0a2a141
+Y
+)src/main/java/entity/OrderDetailsKey.java,d\8\d8bf35ddbede29bf962753bff8b727d827e0db2f
+U
+%src/main/java/entity/OrderDetail.java,9\5\95539df9e9e1bc7fb0d7822ae09bdd972b17ec90
+W
+'src/main/java/bo/custom/CustomerBo.java,b\a\ba3778c7e27590033ee81d064dd4468aa33eda6b
+`
+0src/main/java/bo/custom/impl/CustomerBoImpl.java,1\a\1a654b3282b021ba122a376474fac2d6aba60198
+]
+-src/main/java/bo/custom/impl/OrderBoImpl.java,3\b\3b7ed7c5f9386b52fcbd273d709e57a03acfa6d2
+T
+$src/main/java/bo/custom/OrderBo.java,f\4\f4324142a116e27db58e2a81f2d0e4b8da1cab2a
+V
+&src/main/java/dao/custom/OrderDao.java,0\8\0862556bde68ad47794fc754fd19e77b0f13b6d7
+O
+src/main/java/dto/OrderDto.java,d\9\d99f6e4a8edc2b395bd1e1d43fbcd641e1fa81f5
+S
+#src/main/java/bo/custom/ItemBo.java,5\5\550c2e395f13d384aec20a9ebca0bc483a9313ae
+\
+,src/main/java/bo/custom/impl/ItemBoImpl.java,b\4\b462a7d52bfda8233a21218d58e9fececacef184
+P
+ src/main/java/dto/tm/ItemTm.java,9\b\9bcbd3a396619ca96463cd87f096ec09b0b2ae8f
+e
+5src/main/java/controller/DashboardFormController.java,6\f\6f99669d9b5be5e1e1e4035124054002879a3877

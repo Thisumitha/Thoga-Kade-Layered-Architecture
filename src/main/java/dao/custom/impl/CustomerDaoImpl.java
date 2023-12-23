@@ -25,7 +25,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Query query = session.createQuery("FROM Customer  WHERE name LIKE '"+src+"%' ");
         List<Customer> list = query.list();
 
-
+        session.close();
         return list;
 
     }
@@ -51,6 +51,7 @@ public class CustomerDaoImpl implements CustomerDao {
         customer.setSalary(entity.getSalary());
         session.save(customer);
         transaction.commit();
+        session.close();
         return true;
     }
 
@@ -60,6 +61,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Transaction transaction = session.beginTransaction();
         session.delete(session.find(Customer.class,id));
         transaction.commit();
+        session.close();
         return true;
     }
 
@@ -69,7 +71,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Query query = session.createQuery("FROM Customer");
         List<Customer> list = query.list();
 
-
+        session.close();
         return list;
     }
 }
