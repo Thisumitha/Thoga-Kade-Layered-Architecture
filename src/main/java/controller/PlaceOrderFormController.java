@@ -105,14 +105,14 @@ public class PlaceOrderFormController {
         }
         for (ItemDto set : items) {
             if (set.getCode().equals(id)) {
-                if (!(set.getQty() > txt)) {
+                if (!(set.getQty() >= txt||1<=txt)) {
                     new Alert(Alert.AlertType.ERROR, "Check QTY!").show();
                 } else {
                     txtQty.setStyle("-fx-border-color:white");
                     max.setVisible(false);
 
         try {
-            double amount= itemDao.getItem(cmbItemCode.getValue().toString()).getUnitPrice() * Integer.parseInt(txtQty.getText()); ;
+            double amount= itemDao.getItem(cmbItemCode.getValue().toString()).getUnitPrice() * Integer.parseInt(txtQty.getText());
             JFXButton btn =new JFXButton("Delete");
             OrderTm tm =new OrderTm(
                     cmbItemCode.getValue().toString(),
@@ -128,6 +128,7 @@ public class PlaceOrderFormController {
                 tot-=tm.getAmount();
                 lblTotal.setText(String.format("%.2f",tot));
                 replace(tm.getCode());
+
             });
 
             for (OrderTm order:tmList){

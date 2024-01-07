@@ -4,7 +4,9 @@ import bo.BoFactory;
 import bo.custom.CustomerBo;
 import com.jfoenix.controls.JFXTextField;
 import dao.util.BoType;
-import db.DBConnection;
+import dao.util.HibernateUtil;
+import dto.CustomerDto;
+import dto.tm.CustomerTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,15 +17,16 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import dto.CustomerDto;
-import dto.tm.CustomerTm;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import org.hibernate.internal.SessionImpl;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 
@@ -237,10 +240,10 @@ public class CustomerFormController {
         try {
             JasperDesign design = JRXmlLoader.load("src/main/resources/reports/customer_Report.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(design);
-
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null,DBConnection.getInstance().getConnection());
+            Connection connection = ((SessionImpl) HibernateUtil.getSession()).connection();
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection);
             JasperViewer.viewReport(jasperPrint,false);
-        } catch (JRException | ClassNotFoundException | SQLException e) {
+        } catch (JRException e) {
             throw new RuntimeException(e);
         }
     }

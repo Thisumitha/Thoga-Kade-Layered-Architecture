@@ -1,8 +1,0 @@
-
-´
-java:S1598"–This file "OrderBoImpl.java" should be located in "bo\Custom\impl" directory, not in "D:\icm\javafx\day 06\Thoga-Kade\src\main\java\bo\Customer\impl".(ŠËš¿8Öš¯É1
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ŠËš¿
-Z
-java:S2147""DCombine this catch with the one at line 32, which has the same body.(ıàÑÎ
-K
-java:S6397"5Replace this character class by the character itself.(à‡·¬

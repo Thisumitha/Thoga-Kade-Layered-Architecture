@@ -226,6 +226,7 @@ public class ItemFormController {
         txtQty.clear();
         txtDesc.clear();
         txtUnitPrice.clear();
+        txtCode.setEditable(true);
     }
 
 
